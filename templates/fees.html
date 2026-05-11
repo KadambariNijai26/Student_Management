@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:30px;">
+
+    <h1>Fees Records</h1>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Student</th>
+            <th>Total Fees</th>
+            <th>Paid</th>
+            <th>Due</th>
+        </tr>
+
+        {% for fee in data %}
+
+        <tr>
+            <td>{{ fee.student.name }}</td>
+            <td>{{ fee.total }}</td>
+            <td>{{ fee.paid }}</td>
+            <td>{{ fee.due }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}

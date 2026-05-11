@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1>Attendance Records</h1>
+
+    <div class="alert alert-success">
+
+        Attendance Percentage:
+        {{ percentage }}%
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <tr>
+
+            <th>Student</th>
+
+            <th>Date</th>
+
+            <th>Status</th>
+
+        </tr>
+
+        {% for record in records %}
+
+        <tr>
+
+            <td>{{ record.student.name }}</td>
+
+            <td>{{ record.date }}</td>
+
+            <td>{{ record.status }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}
