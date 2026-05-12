@@ -13,7 +13,7 @@ from .forms import ProfileForm
 # REGISTER VIEW
 # =========================
 
-def register(request):
+def register_view(request):
 
     if request.method == 'POST':
 
