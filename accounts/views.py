@@ -57,8 +57,8 @@ def login_view(request):
 
     if request.method == 'POST':
 
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         user = authenticate(
             request,
@@ -70,38 +70,26 @@ def login_view(request):
 
             login(request, user)
 
-            # SAFE PROFILE CREATION
+            # Create profile if missing
             profile, created = UserProfile.objects.get_or_create(
                 user=user,
-                defaults={
-                    'role': 'student',
-                    'phone': '',
-                    'address': ''
-                }
+                defaults={'role': 'student'}
             )
 
-            # ROLE REDIRECT
-            if profile.role == 'student':
-
-                return redirect('/student-dashboard/')
-
-            elif profile.role == 'teacher':
-
-                return redirect('/teacher-dashboard/')
+            # Safe redirect
+            if profile.role == 'teacher':
+                return redirect('/accounts/teacher-dashboard/')
 
             elif profile.role == 'admin':
+                return redirect('/accounts/admin-dashboard/')
 
-                return redirect('/admin-dashboard/')
-
-            return redirect('/')
+            else:
+                return redirect('/accounts/student-dashboard/')
 
         else:
+            messages.error(request, "Invalid Username or Password")
 
-            messages.error(request, 'Invalid Username or Password')
-
-            return redirect('/login/')
-
-    return render(request, 'login.html')
+    return render(request, 'accounts/login.html')
 
 
 # =========================
@@ -120,8 +108,7 @@ def logout_view(request):
 # =========================
 # STUDENT DASHBOARD
 # =========================
-
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def student_dashboard(request):
 
     profile, created = UserProfile.objects.get_or_create(
@@ -135,14 +122,17 @@ def student_dashboard(request):
 
         return HttpResponse("Unauthorized Access")
 
-    return render(request, 'student_dashboard.html')
+    return render(
+        request,
+        'accounts/student_dashboard.html'
+    )
 
 
 # =========================
 # TEACHER DASHBOARD
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def teacher_dashboard(request):
 
     profile, created = UserProfile.objects.get_or_create(
@@ -156,14 +146,17 @@ def teacher_dashboard(request):
 
         return HttpResponse("Unauthorized Access")
 
-    return render(request, 'teacher_dashboard.html')
+    return render(
+        request,
+        'accounts/teacher_dashboard.html'
+    )
 
 
 # =========================
 # ADMIN DASHBOARD
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def admin_dashboard(request):
 
     profile, created = UserProfile.objects.get_or_create(
@@ -177,7 +170,10 @@ def admin_dashboard(request):
 
         return HttpResponse("Unauthorized Access")
 
-    return render(request, 'admin_dashboard.html')
+    return render(
+        request,
+        'accounts/admin_dashboard.html'
+    )
 
 
 # =========================
