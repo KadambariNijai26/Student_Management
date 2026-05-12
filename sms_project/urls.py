@@ -17,7 +17,7 @@ Including another URLconf
 
  
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,23 +28,11 @@ from attendance.views import attendance_view
 from marks.views import marks_view
 from fees.views import fees_view
 
-from accounts.views import (
-    login_view,
-    register,
-    logout_view,
-    student_dashboard,
-    teacher_dashboard,
-    admin_dashboard,
-    profile
-)
 from students.views import (
 
     student_list,
-
     add_student,
-
     update_student,
-
     delete_student
 
 )
@@ -53,33 +41,26 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
+    # Core Pages
     path('', core.home, name='home'),
 
     path('about/', core.about, name='about'),
 
     path('contact/', core.contact, name='contact'),
 
+    # Accounts App
+    path('accounts/', include('accounts.urls')),
+
+    # Attendance
     path('attendance/', attendance_view, name='attendance'),
 
+    # Marks
     path('marks/', marks_view, name='marks'),
 
+    # Fees
     path('fees/', fees_view, name='fees'),
 
-    path('login/', login_view, name='login'),
-
-    path('register/', register, name='register'),
-
-    path('logout/', logout_view, name='logout'),
-
-    path('student-dashboard/', student_dashboard),
-
-    path('teacher-dashboard/', teacher_dashboard),
-
-    path('admin-dashboard/', admin_dashboard),
-
-    path('profile/', profile),
-
-
+    # Students CRUD
     path('students/', student_list),
 
     path('add-student/', add_student),
