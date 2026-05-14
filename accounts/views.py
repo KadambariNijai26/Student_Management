@@ -26,20 +26,26 @@ def register_view(request):
         # Validation
         if not username or not email or not password or not role:
 
-            messages.error(request, 'All fields are required')
+            messages.error(
+                request,
+                'All fields are required'
+            )
 
             return redirect('/accounts/register/')
 
-        # Check existing user
+        # Check if username exists
         if User.objects.filter(username=username).exists():
 
-            messages.error(request, 'Username already exists')
+            messages.error(
+                request,
+                'Username already exists'
+            )
 
             return redirect('/accounts/register/')
 
         try:
 
-            # Create user
+            # Create Django user
             user = User.objects.create_user(
                 username=username,
                 email=email,
@@ -49,20 +55,31 @@ def register_view(request):
             # Create profile
             UserProfile.objects.create(
                 user=user,
-                role=role
+                role=role,
+                phone='',
+                address=''
             )
 
-            messages.success(request, 'Registration successful')
+            messages.success(
+                request,
+                'Registration successful'
+            )
 
             return redirect('/accounts/login/')
 
         except Exception as e:
 
-            messages.error(request, str(e))
+            messages.error(
+                request,
+                str(e)
+            )
 
             return redirect('/accounts/register/')
 
-    return render(request, 'accounts/register.html')
+    return render(
+        request,
+        'accounts/register.html'
+    )
 
 
 # =========================
