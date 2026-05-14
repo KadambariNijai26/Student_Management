@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+
 from .decorators import allowed_users
 from .models import UserProfile
 from .forms import ProfileForm
@@ -20,26 +21,50 @@ def register_view(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+        role = request.POST.get('role')
 
+        # Validation
+        if not username or not email or not password or not role:
+
+            messages.error(request, 'All fields are required')
+
+            return redirect('/accounts/register/')
+
+        # Check existing user
         if User.objects.filter(username=username).exists():
 
             messages.error(request, 'Username already exists')
 
             return redirect('/accounts/register/')
 
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
+        try:
 
-        user.save()
+            # Create user
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
 
-        messages.success(request, 'Registration successful')
+            # Create profile
+            UserProfile.objects.create(
+                user=user,
+                role=role
+            )
 
-        return redirect('/accounts/login/')
+            messages.success(request, 'Registration successful')
+
+            return redirect('/accounts/login/')
+
+        except Exception as e:
+
+            messages.error(request, str(e))
+
+            return redirect('/accounts/register/')
 
     return render(request, 'accounts/register.html')
+
+
 # =========================
 # LOGIN VIEW
 # =========================
@@ -67,20 +92,30 @@ def login_view(request):
                 defaults={'role': 'student'}
             )
 
-            # Safe redirect
+            # Redirect based on role
             if profile.role == 'teacher':
+
                 return redirect('/accounts/teacher-dashboard/')
 
             elif profile.role == 'admin':
+
                 return redirect('/accounts/admin-dashboard/')
 
             else:
+
                 return redirect('/accounts/student-dashboard/')
 
         else:
-            messages.error(request, "Invalid Username or Password")
 
-    return render(request, 'accounts/login.html')
+            messages.error(
+                request,
+                "Invalid Username or Password"
+            )
+
+    return render(
+        request,
+        'accounts/login.html'
+    )
 
 
 # =========================
@@ -91,7 +126,10 @@ def logout_view(request):
 
     logout(request)
 
-    messages.success(request, 'Logged Out Successfully')
+    messages.success(
+        request,
+        'Logged Out Successfully'
+    )
 
     return redirect('/accounts/login/')
 
@@ -99,6 +137,7 @@ def logout_view(request):
 # =========================
 # STUDENT DASHBOARD
 # =========================
+
 @login_required(login_url='/accounts/login/')
 def student_dashboard(request):
 
@@ -111,7 +150,9 @@ def student_dashboard(request):
 
     if profile.role != 'student':
 
-        return HttpResponse("Unauthorized Access")
+        return HttpResponse(
+            "Unauthorized Access"
+        )
 
     return render(
         request,
@@ -135,7 +176,9 @@ def teacher_dashboard(request):
 
     if profile.role != 'teacher':
 
-        return HttpResponse("Unauthorized Access")
+        return HttpResponse(
+            "Unauthorized Access"
+        )
 
     return render(
         request,
@@ -159,7 +202,9 @@ def admin_dashboard(request):
 
     if profile.role != 'admin':
 
-        return HttpResponse("Unauthorized Access")
+        return HttpResponse(
+            "Unauthorized Access"
+        )
 
     return render(
         request,
@@ -193,12 +238,18 @@ def profile(request):
 
         form.save()
 
-        messages.success(request, 'Profile Updated Successfully')
+        messages.success(
+            request,
+            'Profile Updated Successfully'
+        )
 
         return redirect('/accounts/profile/')
 
-    return render(request, 'profile.html', {
-        'form': form,
-        'profile': profile
-    })
-    
+    return render(
+        request,
+        'profile.html',
+        {
+            'form': form,
+            'profile': profile
+        }
+    )
