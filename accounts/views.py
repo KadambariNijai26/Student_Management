@@ -17,38 +17,29 @@ def register_view(request):
 
     if request.method == 'POST':
 
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        role = request.POST['role']
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-        # Check username
         if User.objects.filter(username=username).exists():
 
             messages.error(request, 'Username already exists')
 
             return redirect('/accounts/register/')
 
-        # Create User
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        # Create Profile
-        UserProfile.objects.create(
-            user=user,
-            role=role
-        )
+        user.save()
 
-        messages.success(request, 'Registration Successful')
+        messages.success(request, 'Registration successful')
 
         return redirect('/accounts/login/')
 
     return render(request, 'accounts/register.html')
-
-
 # =========================
 # LOGIN VIEW
 # =========================
