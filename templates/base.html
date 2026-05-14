@@ -264,7 +264,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="/profile/">
+                           href="{% url 'profile' %}">
 
                             Profile
 
@@ -279,7 +279,7 @@
                         <li class="nav-item">
 
                             <a class="nav-link"
-                               href="/student-dashboard/">
+                               href="{% url 'student_dashboard' %}">
 
                                 Dashboard
 
@@ -329,7 +329,7 @@
                         <li class="nav-item">
 
                             <a class="nav-link"
-                               href="/teacher-dashboard/">
+                               href="{% url 'teacher_dashboard' %}">
 
                                 Teacher Panel
 
@@ -346,7 +346,7 @@
                         <li class="nav-item">
 
                             <a class="nav-link"
-                               href="/admin-dashboard/">
+                               href="{% url 'admin_dashboard' %}">
 
                                 Admin Panel
 
@@ -361,7 +361,7 @@
                     <li class="nav-item ms-2">
 
                         <a class="btn btn-danger"
-                           href="/logout/">
+                           href="{% url 'logout' %}">
 
                             Logout
 

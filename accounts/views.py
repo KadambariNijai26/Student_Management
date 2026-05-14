@@ -204,7 +204,7 @@ def profile(request):
 
         messages.success(request, 'Profile Updated Successfully')
 
-        return redirect('/profile/')
+        return redirect('/accounts/profile/')
 
     return render(request, 'profile.html', {
         'form': form,
