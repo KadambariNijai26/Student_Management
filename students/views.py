@@ -16,7 +16,7 @@ from accounts.decorators import allowed_users
 
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def student_list(request):
 
@@ -49,7 +49,7 @@ def student_list(request):
 # ADD STUDENT
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def add_student(request):
 
@@ -72,7 +72,7 @@ def add_student(request):
 # UPDATE STUDENT
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def update_student(request, id):
 
@@ -102,7 +102,7 @@ def update_student(request, id):
 # DELETE STUDENT
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def delete_student(request, id):
 

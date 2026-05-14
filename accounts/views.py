@@ -27,7 +27,7 @@ def register_view(request):
 
             messages.error(request, 'Username already exists')
 
-            return redirect('/register/')
+            return redirect('/accounts/register/')
 
         # Create User
         user = User.objects.create_user(
@@ -44,9 +44,9 @@ def register_view(request):
 
         messages.success(request, 'Registration Successful')
 
-        return redirect('/login/')
+        return redirect('/accounts/login/')
 
-    return render(request, 'register.html')
+    return render(request, 'accounts/register.html')
 
 
 # =========================
@@ -102,7 +102,7 @@ def logout_view(request):
 
     messages.success(request, 'Logged Out Successfully')
 
-    return redirect('/login/')
+    return redirect('/accounts/login/')
 
 
 # =========================
@@ -180,7 +180,7 @@ def admin_dashboard(request):
 # PROFILE VIEW
 # =========================
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def profile(request):
 
     profile, created = UserProfile.objects.get_or_create(

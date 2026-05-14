@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Attendance
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def attendance_view(request):
 
     records = Attendance.objects.all()

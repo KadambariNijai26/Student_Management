@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -374,7 +376,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="/login/">
+                           href="{% url 'login' %}">
 
                             Login
 
@@ -387,7 +389,7 @@
                     <li class="nav-item ms-2">
 
                         <a class="btn btn-warning text-dark fw-bold"
-                           href="/register/">
+                           href="{% url 'register' %}">
 
                             Register
 
@@ -423,7 +425,7 @@
             with a beautiful modern dashboard.
         </p>
 
-        <a href="/register/" class="btn">Get Started</a>
+        <a href="{% url 'register' %}" class="btn">Get Started</a>
 
     </div>
 

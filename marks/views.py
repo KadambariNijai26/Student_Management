@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Marks
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def marks_view(request):
 
     data = Marks.objects.all()
