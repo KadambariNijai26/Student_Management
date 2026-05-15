@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-
+from students.models import Student
 from .models import Attendance
 
 
 @login_required(login_url='/accounts/login/')
-def attendance_view(request):
-
+def attendance_view(request, id):
+    student = get_object_or_404(Student, id=id)
     records = Attendance.objects.all()
 
     total = records.count()
