@@ -27,7 +27,10 @@ def register_view(request):
 
             if User.objects.filter(username=username).exists():
 
-                messages.error(request, 'Username already exists')
+                messages.error(
+                    request,
+                    'Username already exists'
+                )
 
                 return redirect('/accounts/register/')
 
@@ -39,7 +42,9 @@ def register_view(request):
 
             UserProfile.objects.create(
                 user=user,
-                role=role
+                role=role,
+                phone='',
+                address=''
             )
 
             messages.success(
@@ -53,8 +58,10 @@ def register_view(request):
 
             return HttpResponse(str(e))
 
-    return render(request, 'accounts/register.html')
-
+    return render(
+        request,
+        'accounts/register.html'
+    )
 # =========================
 # LOGIN VIEW
 # =========================
