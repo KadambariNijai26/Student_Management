@@ -1,0 +1,13 @@
+<h1>Add Attendance for {{ student.name }}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Status:</label>
+    <select name="status">
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+    </select>
+
+    <button type="submit">Save</button>
+</form>
