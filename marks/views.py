@@ -8,13 +8,28 @@ from .models import Marks
 def marks_view(request):
 
     data = Marks.objects.all()
-    
+
 
     return render(request, 'marks.html', {
         'data': data
     })
 
 
+
+def add_marks(request, id):
+    student = get_object_or_404(Student, id=id)
+
+    if request.method == "POST":
+        Marks.objects.create(
+            student=student,
+            subject=request.POST['subject'],
+            marks=request.POST['marks']
+        )
+        return redirect('/students/manage/' + str(id))
+
+    return render(request, 'accounts/forms.html', {
+        'student': student
+    })
 
 def update_marks(request, id):
 
