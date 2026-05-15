@@ -5,9 +5,12 @@ from .models import UserProfile
 
 class RegisterForm(forms.ModelForm):
 
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(
+        widget=forms.PasswordInput()
+    )
 
     class Meta:
+
         model = User
 
         fields = [
@@ -26,5 +29,5 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'phone',
             'address',
-            'profile_pic'
+            'profile_image'
         ]

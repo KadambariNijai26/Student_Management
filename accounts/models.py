@@ -7,9 +7,7 @@ class UserProfile(models.Model):
     ROLE_CHOICES = (
 
         ('student', 'Student'),
-
         ('teacher', 'Teacher'),
-
         ('admin', 'Admin'),
 
     )
@@ -36,8 +34,8 @@ class UserProfile(models.Model):
         null=True
     )
 
-    profile_pic = models.ImageField(
-        upload_to='profile_pics/',
+    profile_image = models.ImageField(
+        upload_to='profiles/',
         blank=True,
         null=True
     )
