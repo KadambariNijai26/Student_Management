@@ -20,10 +20,11 @@ class RegisterForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 
     class Meta:
+
         model = UserProfile
 
         fields = [
             'phone',
             'address',
-            'profile_image'
+            'profile_pic'
         ]
