@@ -27,7 +27,7 @@ def add_marks(request, id):
         )
         return redirect('/students/manage/' + str(id))
 
-    return render(request, 'accounts/forms.html', {
+    return render(request, 'accounts/form.html', {
         'student': student
     })
 
