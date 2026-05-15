@@ -4,7 +4,7 @@
     {% csrf_token %}
 
     <label>Status:</label>
-    <select name="status">
+    <select name="status" required>
         <option value="Present">Present</option>
         <option value="Absent">Absent</option>
     </select>
