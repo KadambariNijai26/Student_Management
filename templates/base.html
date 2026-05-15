@@ -426,11 +426,17 @@
         </p>
 
         <a href="{% url 'register' %}" class="btn">Get Started</a>
-
+        {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
     </div>
 
     {% endblock %}
-
+ 
 </div>
 
 <footer>
