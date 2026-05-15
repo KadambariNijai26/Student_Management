@@ -5,7 +5,7 @@ from .models import Marks
 
 
 @login_required(login_url='/accounts/login/')
-def marks_view(request):
+def marks_view(request, id):
 
     data = Marks.objects.all()
 
