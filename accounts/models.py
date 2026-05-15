@@ -30,8 +30,8 @@ class UserProfile(models.Model):
     )
 
     address = models.TextField(
-        blank=True,
-        null=True
+    blank=True,
+    default=''
     )
 
     profile_image = models.ImageField(
