@@ -4,24 +4,42 @@
 
 <div style="padding:30px;">
 
-    <h1>Fees Records</h1>
+    <h1>Fees Details</h1>
 
     <table border="1" cellpadding="10">
 
         <tr>
             <th>Student</th>
+
             <th>Total Fees</th>
-            <th>Paid</th>
-            <th>Due</th>
+
+            <th>Paid Fees</th>
+
+            <th>Remaining Fees</th>
         </tr>
 
-        {% for fee in data %}
+        {% for f in data %}
 
         <tr>
-            <td>{{ fee.student.name }}</td>
-            <td>{{ fee.total }}</td>
-            <td>{{ fee.paid }}</td>
-            <td>{{ fee.due }}</td>
+
+            <td>{{ f.student.name }}</td>
+
+            <td>{{ f.total_fees }}</td>
+
+            <td>{{ f.paid_fees }}</td>
+
+            <td>{{ f.remaining_fees }}</td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="4">
+                No fee records found
+            </td>
+
         </tr>
 
         {% endfor %}

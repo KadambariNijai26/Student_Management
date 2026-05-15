@@ -8,6 +8,9 @@ from .models import Student
 from .forms import StudentForm
 
 from accounts.decorators import allowed_users
+from attendance.models import Attendance
+from marks.models import Marks
+from fees.models import Fees
 
 
 # =========================
@@ -32,7 +35,7 @@ def student_list(request):
 
         ) | Student.objects.filter(
 
-            rollno__icontains=query
+            roll_no__icontains=query
 
         ) | Student.objects.filter(
 
@@ -111,4 +114,38 @@ def delete_student(request, id):
     student.delete()
 
     return redirect('/students/')
+
+
+# =========================
+# STUDENT DASHBOARD
+# =========================
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['student'])
+def student_dashboard(request):
+
+    try:
+        student = Student.objects.get(user=request.user)
+
+        attendance = Attendance.objects.filter(student=student)
+
+        marks = Marks.objects.filter(student=student)
+
+        fees = Fees.objects.filter(student=student)
+        print(fees)
+
+        context = {
+            'student': student,
+            'attendance': attendance,
+            'marks': marks,
+            'fees': fees,
+        }
+
+        return render(request, 'student_dashboard.html', context)
+
+    except Student.DoesNotExist:
+
+        return render(request, 'error.html', {
+            'message': 'Student profile not found'
+        })
 # Create your views here.

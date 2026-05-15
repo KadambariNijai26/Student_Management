@@ -69,6 +69,10 @@ urlpatterns = [
 
     path('delete-student/<int:id>/', delete_student),
 
+
+    
+   path('', include('core.urls')),
+
 ]
 
 urlpatterns += static(

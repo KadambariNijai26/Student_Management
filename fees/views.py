@@ -8,6 +8,7 @@ from .models import Fees
 def fees_view(request):
 
     data = Fees.objects.all()
+    print(data)
 
     return render(request, 'fees.html', {
         'data': data

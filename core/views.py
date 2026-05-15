@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Contact
+from students.models import Student
+from attendance.models import Attendance
+from marks.models import Marks
+from fees.models import Fees
 
 
 def home(request):
@@ -21,4 +25,13 @@ def contact(request):
         return redirect('/')
 
     return render(request, 'contact.html')
+
+def teacher_dashboard(request):
+    students = Student.objects.all()
+
+    context = {
+        'students': students
+    }
+
+    return render(request, 'teacher_dashboard.html', context)
 # Create your views here.
