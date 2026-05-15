@@ -53,12 +53,18 @@ urlpatterns = [
 
     # Attendance
     path('attendance/', attendance_view, name='attendance'),
+    
+    path('students/', include('students.urls')),
 
+    path('attendance/', include('attendance.urls')),
+
+    path('marks/', include('marks.urls')),
     # Marks
     path('marks/', marks_view, name='marks'),
 
     # Fees
     path('fees/', fees_view, name='fees'),
+    path('fees/', include('fees.urls')),
 
     # Students CRUD
     path('students/', student_list),

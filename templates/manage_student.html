@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Manage Student: {{ student.name }}</h1>
+
+<hr>
+
+<h2>Attendance</h2>
+<a href="/students/manage/{{ student.id }}/add-attendance/">Add Attendance</a><br>
+<a href="/attendance/update/{{ a.id }}/">Edit</a>
+<a href="/attendance/delete/{{ a.id }}/"
+       onclick="return confirm('Delete this attendance?')">
+       Delete
+    </a>
+{% for a in attendance %}
+<p>{{ a.date }} - {{ a.status }}</p>
+{% endfor %}
+
+<hr>
+
+<h2>Marks</h2>
+<a href="/students/manage/{{ student.id }}/add-marks/">Add Marks</a><br>
+<a href="/marks/update/{{ m.id }}/">Edit</a>
+<a href="/marks/delete/{{ m.id }}/"
+       onclick="return confirm('Delete this mark?')">
+       Delete
+    </a>
+{% for m in marks %}
+<p>{{ m.subject }} - {{ m.marks }}</p>
+{% endfor %}
+
+<hr>
+
+<h2>Fees</h2>
+<a href="/students/manage/{{ student.id }}/add-fees/">Add Fees</a><br>
+ <a href="/fees/update/{{ f.id }}/">Edit</a>
+ <a href="/fees/delete/{{ f.id }}/"
+       onclick="return confirm('Delete this fee record?')">
+       Delete
+    </a>
+
+{% for f in fees %}
+<p>Total: {{ f.total_fees }} | Paid: {{ f.paid_fees }}</p>
+{% endfor %}
+
+{% endblock %}

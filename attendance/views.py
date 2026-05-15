@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 from .models import Attendance
@@ -26,4 +26,23 @@ def attendance_view(request):
         'percentage': percentage
 
     })
+def update_attendance(request, id):
+
+    attendance = get_object_or_404(Attendance, id=id)
+
+    if request.method == "POST":
+        attendance.status = request.POST['status']
+        attendance.save()
+        return redirect('/students/manage/' + str(attendance.student.id))
+
+    return render(request, 'update_attendance.html', {
+        'attendance': attendance
+    })
+
+
+def delete_attendance(request, id):
+    attendance = get_object_or_404(Attendance, id=id)
+    student_id = attendance.student.id
+    attendance.delete()
+    return redirect('/students/manage/' + str(student_id))
 # Create your views here.

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:30px;">
+
+    <h2>Update Attendance</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Status:</label>
+        <input type="text" name="status" value="{{ attendance.status }}">
+
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

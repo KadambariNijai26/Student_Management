@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:30px;">
+
+    <h2>Update Marks</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Subject:</label>
+        <input type="text" name="subject" value="{{ marks.subject }}"><br><br>
+
+        <label>Marks:</label>
+        <input type="number" name="marks" value="{{ marks.marks }}"><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

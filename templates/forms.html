@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:30px;">
+
+    <h2>Form</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Save</button>
+    </form>
+
+</div>
+
+{% endblock %}

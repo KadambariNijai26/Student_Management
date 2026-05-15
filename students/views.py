@@ -11,6 +11,9 @@ from accounts.decorators import allowed_users
 from attendance.models import Attendance
 from marks.models import Marks
 from fees.models import Fees
+from attendance.forms import AttendanceForm
+from marks.forms import MarksForm
+from fees.forms import FeesForm
 
 
 # =========================
@@ -148,4 +151,83 @@ def student_dashboard(request):
         return render(request, 'error.html', {
             'message': 'Student profile not found'
         })
+    
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
+def teacher_dashboard(request):
+    students = Student.objects.all()
+
+    return render(request, 'teacher_dashboard.html', {
+        'students': students
+    })   
+
+@login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
+def manage_student(request, id):
+
+    student = get_object_or_404(Student, id=id)
+
+    attendance = Attendance.objects.filter(student=student)
+    marks = Marks.objects.filter(student=student)
+    fees = Fees.objects.filter(student=student)
+
+    return render(request, 'manage_student.html', {
+        'student': student,
+        'attendance': attendance,
+        'marks': marks,
+        'fees': fees,
+    }) 
+
+
+@login_required
+@allowed_users(allowed_roles=['teacher', 'admin'])
+def add_attendance(request, student_id):
+
+    student = Student.objects.get(id=student_id)
+
+    form = AttendanceForm(request.POST or None)
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.student = student
+        obj.save()
+        return redirect('/students/manage/' + str(student.id))
+
+    return render(request, 'form.html', {'form': form})
+
+
+@login_required
+@allowed_users(allowed_roles=['teacher', 'admin'])
+def add_marks(request, student_id):
+
+    student = Student.objects.get(id=student_id)
+
+    form = MarksForm(request.POST or None)
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.student = student
+        obj.save()
+        return redirect('/students/manage/' + str(student.id))
+
+    return render(request, 'form.html', {'form': form})
+
+
+
+@login_required
+@allowed_users(allowed_roles=['teacher', 'admin'])
+def add_fees(request, student_id):
+
+    student = Student.objects.get(id=student_id)
+
+    form = FeesForm(request.POST or None)
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.student = student
+        obj.save()
+        return redirect('/students/manage/' + str(student.id))
+
+    return render(request, 'form.html', {'form': form})
 # Create your views here.

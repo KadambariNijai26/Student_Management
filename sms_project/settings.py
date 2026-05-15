@@ -15,15 +15,20 @@ SECRET_KEY = os.environ.get(
 
 import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+# }
 
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+}
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get(
     'ALLOWED_HOSTS',
-    '*'
+    '*',
+    '127.0.0.1,localhost'
 ).split(',')
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
@@ -123,7 +128,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 

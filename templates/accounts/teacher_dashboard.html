@@ -4,69 +4,92 @@
 
 <div style="padding:30px;">
 
-    <h1>Student Dashboard</h1>
-    <table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Roll No</th>
-        <th>Course</th>
-    </tr>
+    <h1>Teacher Dashboard</h1>
 
-    {% for student in students %}
-    <tr>
-        <td>{{ student.user.username }}</td>
-        <td>{{ student.roll_no }}</td>
-        <td>{{ student.course }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-    <div style="display:flex; gap:20px;">
-
-        <div style="border:1px solid #ccc; padding:20px; width:220px;">
-
-            <h3>Attendance</h3>
-
-            <a href="/attendance/">View Attendance</a>
-
-        </div>
-
-        <div style="border:1px solid #ccc; padding:20px; width:220px;">
-
-            <h3>Marks</h3>
-
-            <a href="/marks/">View Marks</a>
-
-        </div>
-
-        <div style="border:1px solid #ccc; padding:20px; width:220px;">
-
-            <h3>Fees</h3>
-
-            <a href="/fees/">View Fees</a>
-
-        </div>
-        <div class="card p-4 shadow mt-4">
-
-    <h3>Manage Students</h3>
-
-    <p>
-
-        Add, edit and delete student records.
-
-    </p>
-
-    <a href="/students/"
-       class="btn btn-dark">
-
-        Open Student Panel
-
-    </a>
-
-</div>
-
+    <hr>
+   <a href="/students/add/" class="btn-brown">
+    + Add Student
+</a>
+    <!-- =========================
+         ADD STUDENT BUTTON
+    ========================== -->
+    <div style="margin-bottom:20px;">
+    
+        
     </div>
 
-</div>
+    <!-- =========================
+         STUDENT TABLE
+    ========================== -->
 
+   
+    <hr>
+
+    <!-- =========================
+         QUICK MODULE LINKS
+    ========================== -->
+
+    <div style="display:flex; gap:20px; margin-top:20px;">
+
+        <div style="border:1px solid #ccc; padding:20px; width:220px;">
+            <h3>Attendance</h3>
+            <a href="/attendance/">View Attendance</a>
+        </div>
+
+        <div style="border:1px solid #ccc; padding:20px; width:220px;">
+            <h3>Marks</h3>
+            <a href="/marks/">View Marks</a>
+        </div>
+
+        <div style="border:1px solid #ccc; padding:20px; width:220px;">
+            <h3>Fees</h3>
+            <a href="/fees/">View Fees</a>
+        </div>
+
+    </div>
+ <h2>Students List</h2>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+        <tr style="background:#f2f2f2;">
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Course</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for student in students %}
+
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll_no }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.contact }}</td>
+            <td>{{ student.email }}</td>
+
+            <td>
+
+                <!-- Manage Full Student -->
+                <a href="/students/manage/{{ student.id }}/">Manage</a> |
+
+                <!-- Update Student -->
+                <a href="/students/update/{{ student.id }}/">Edit</a> |
+
+                <!-- Delete Student -->
+                <a href="/students/delete/{{ student.id }}/"
+                   onclick="return confirm('Are you sure you want to delete this student?')">
+                   Delete
+                </a>
+
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+ 
 {% endblock %}
