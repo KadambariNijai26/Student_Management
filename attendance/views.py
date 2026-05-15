@@ -67,7 +67,7 @@ def add_attendance(request, id):
         messages.success(request, "Attendance added successfully!")
         return redirect('teacher_dashboard')
 
-    return render(request, 'attendance/add_attendance.html', {
+    return render(request, 'accounts/add_attendance.html', {
         'student': student
     })
 # Create your views here.
