@@ -20,8 +20,8 @@ def register_view(request):
 
         try:
 
-            username = request.POST.get('username')
-            email = request.POST.get('email')
+            username = request.POST.get('username').strip()
+            email = request.POST.get('email').strip()
             password = request.POST.get('password')
             role = request.POST.get('role')
 
@@ -62,6 +62,8 @@ def register_view(request):
         request,
         'accounts/register.html'
     )
+
+
 # =========================
 # LOGIN VIEW
 # =========================
@@ -70,12 +72,12 @@ def login_view(request):
 
     if request.method == 'POST':
 
-        username = request.POST.get('username')
+        username = request.POST.get('username').strip()
         password = request.POST.get('password')
 
         user = authenticate(
             request,
-            username=username.strip(),
+            username=username,
             password=password
         )
 
@@ -115,6 +117,8 @@ def login_view(request):
         request,
         'accounts/login.html'
     )
+
+
 # =========================
 # LOGOUT VIEW
 # =========================
@@ -141,7 +145,9 @@ def student_dashboard(request):
     profile, created = UserProfile.objects.get_or_create(
         user=request.user,
         defaults={
-            'role': 'student'
+            'role': 'student',
+            'phone': '',
+            'address': ''
         }
     )
 
@@ -167,7 +173,9 @@ def teacher_dashboard(request):
     profile, created = UserProfile.objects.get_or_create(
         user=request.user,
         defaults={
-            'role': 'teacher'
+            'role': 'teacher',
+            'phone': '',
+            'address': ''
         }
     )
 
@@ -193,7 +201,9 @@ def admin_dashboard(request):
     profile, created = UserProfile.objects.get_or_create(
         user=request.user,
         defaults={
-            'role': 'admin'
+            'role': 'admin',
+            'phone': '',
+            'address': ''
         }
     )
 

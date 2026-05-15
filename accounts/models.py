@@ -24,14 +24,14 @@ class UserProfile(models.Model):
     )
 
     phone = models.CharField(
-    max_length=15,
-    blank=True,
-    default=''
+        max_length=15,
+        blank=True,
+        default=''
     )
 
     address = models.TextField(
-    blank=True,
-    default=''
+        blank=True,
+        default=''
     )
 
     profile_image = models.ImageField(
