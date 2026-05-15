@@ -7,24 +7,18 @@ from .models import Attendance
 @login_required(login_url='/accounts/login/')
 def attendance_view(request, id):
     student = get_object_or_404(Student, id=id)
-    records = Attendance.objects.all()
+
+    records = Attendance.objects.filter(student=student)
 
     total = records.count()
-
     present = records.filter(status='Present').count()
 
-    percentage = 0
-
-    if total > 0:
-
-        percentage = (present / total) * 100
+    percentage = (present / total) * 100 if total > 0 else 0
 
     return render(request, 'attendance.html', {
-
+        'student': student,
         'records': records,
-
         'percentage': percentage
-
     })
 @login_required(login_url='/accounts/login/')
 def update_attendance(request, id):
