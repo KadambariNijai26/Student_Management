@@ -2,13 +2,42 @@
 
 {% block content %}
 
-<h2>Select Student (Marks)</h2>
+<div style="padding:20px;">
 
-{% for student in students %}
-    <p>
-        {{ student.name }}
-        <a href="{% url 'student_marks' student.id %}">View</a>
-    </p>
-{% endfor %}
+    <h2>Marks - Select Student</h2>
+
+    <hr>
+
+    <!-- Student List -->
+    {% for student in students %}
+
+        <div style="margin-bottom:10px; padding:10px; border:1px solid #ddd;">
+
+            <p>
+                <strong>{{ student.name }}</strong>
+                <br>
+                Roll No: {{ student.roll_no }}
+            </p>
+
+            <!-- View Marks -->
+            <a href="{% url 'student_marks' student.id %}">
+                View Marks
+            </a>
+
+            <!-- Add Marks -->
+            | 
+            <a href="{% url 'add_marks' student.id %}">
+                Add Marks
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p>No students found.</p>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
