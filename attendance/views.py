@@ -42,4 +42,9 @@ def delete_attendance(request, id):
     student_id = attendance.student.id
     attendance.delete()
     return redirect('/students/manage/' + str(student_id))
+
+def add_attendance(request, id):
+    student = get_object_or_404(Student, id=id)
+    # your logic here
+    return render(request, 'add_attendance.html', {'student': student})
 # Create your views here.
