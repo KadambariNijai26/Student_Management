@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:20px;">
+
+    <h2>Attendance - {{ student.name }}</h2>
+
+    <p><strong>Attendance Percentage:</strong> {{ percentage }}%</p>
+
+    <hr>
+
+    <a href="{% url 'add_attendance' student.id %}">
+        + Add Attendance
+    </a>
+
+    <hr>
+
+    {% for a in records %}
+        <div style="margin-bottom:10px;">
+            <p>
+                {{ a.date }} - {{ a.status }}
+            </p>
+
+            <a href="{% url 'update_attendance' a.id %}">Edit</a> |
+            <a href="{% url 'delete_attendance' a.id %}"
+               onclick="return confirm('Delete this record?')">
+                Delete
+            </a>
+        </div>
+    {% empty %}
+        <p>No attendance records found.</p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

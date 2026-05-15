@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Select Student (Attendance)</h2>
+
+{% for student in students %}
+    <p>
+        {{ student.name }}
+        <a href="{% url 'student_attendance' student.id %}">View</a>
+    </p>
+{% endfor %}
+
+{% endblock %}

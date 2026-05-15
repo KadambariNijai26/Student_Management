@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Fees - {{ student.name }}</h2>
+
+<a href="{% url 'add_fees' student.id %}">+ Add Fees</a>
+
+<hr>
+
+{% for f in records %}
+    <p>
+        Total: {{ f.total_fees }} | Paid: {{ f.paid_fees }}
+        <a href="{% url 'update_fees' f.id %}">Edit</a>
+        <a href="{% url 'delete_fees' f.id %}">Delete</a>
+    </p>
+{% empty %}
+    <p>No fees found</p>
+{% endfor %}
+
+{% endblock %}

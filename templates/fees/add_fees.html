@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Add Fees - {{ student.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="number" name="total_fees" placeholder="Total Fees">
+    <input type="number" name="paid_fees" placeholder="Paid Fees">
+
+    <button type="submit">Save</button>
+</form>
+
+{% endblock %}
