@@ -6,7 +6,7 @@ from .models import Fees
 
 @login_required(login_url='/accounts/login/')
 
-def fees_view(request, id):
+def fees_view(request):
 
     data = Fees.objects.all()
     print(data)

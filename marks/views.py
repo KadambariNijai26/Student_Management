@@ -5,9 +5,10 @@ from .models import Marks
 
 
 @login_required(login_url='/accounts/login/')
-def marks_view(request, id):
+def marks_view(request):
 
     data = Marks.objects.all()
+    
 
     return render(request, 'marks.html', {
         'data': data

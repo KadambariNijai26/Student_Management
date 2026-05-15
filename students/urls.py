@@ -11,7 +11,7 @@ urlpatterns = [
     path('delete/<int:id>/', views.delete_student, name='delete_student'),
 
     path('dashboard/', views.student_dashboard, name='student_dashboard'),
-
+     
     # TEACHER CONTROL PANEL
     path('teacher-dashboard/', views.teacher_dashboard, name='teacher_dashboard'),
 

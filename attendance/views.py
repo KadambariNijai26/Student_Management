@@ -5,7 +5,7 @@ from .models import Attendance
 
 
 @login_required(login_url='/accounts/login/')
-def attendance_view(request, id):
+def attendance_view(request):
 
     records = Attendance.objects.all()
 
