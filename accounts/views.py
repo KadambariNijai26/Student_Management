@@ -69,12 +69,8 @@ def register_view(request):
 
         except Exception as e:
 
-            messages.error(
-                request,
-                str(e)
-            )
+            return HttpResponse(str(e))
 
-            return redirect('/accounts/register/')
 
     return render(
         request,
