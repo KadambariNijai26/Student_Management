@@ -144,7 +144,7 @@ def student_dashboard(request):
             'fees': fees,
         }
 
-        return render(request, 'student_dashboard.html', context)
+        return render(request, 'accounts/student_dashboard.html', context)
 
     except Student.DoesNotExist:
 
@@ -158,7 +158,7 @@ def student_dashboard(request):
 def teacher_dashboard(request):
     students = Student.objects.all()
 
-    return render(request, 'teacher_dashboard.html', {
+    return render(request, 'accounts/teacher_dashboard.html', {
         'students': students
     })   
 
