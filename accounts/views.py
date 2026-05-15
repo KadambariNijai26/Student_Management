@@ -69,8 +69,7 @@ def register_view(request):
 
         except Exception as e:
 
-            return HttpResponse(str(e))
-
+            return HttpResponse(f"ERROR: {str(e)}")
 
     return render(
         request,
