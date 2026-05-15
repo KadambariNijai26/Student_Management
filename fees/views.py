@@ -33,6 +33,7 @@ def update_fees(request, id):
     })
 
 def delete_fees(request, id):
+    _ = request
     fees = get_object_or_404(Fees, id=id)
     student_id = fees.student.id
     fees.delete()

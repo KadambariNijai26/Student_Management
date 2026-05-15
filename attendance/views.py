@@ -47,5 +47,5 @@ def delete_attendance(request, id):
     attendance = get_object_or_404(Attendance, id=id)
     student_id = attendance.student.id
     attendance.delete()
-    return redirect(f'/students/manage/{student_id}/')
+    return redirect('/students/manage/' + str(student_id))
 # Create your views here.

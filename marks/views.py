@@ -48,6 +48,7 @@ def update_marks(request, id):
 
 
 def delete_marks(request, id):
+    _ = request
     marks = get_object_or_404(Marks, id=id)
     student_id = marks.student.id
     marks.delete()
