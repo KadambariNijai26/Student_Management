@@ -33,7 +33,17 @@
 
         <div style="border:1px solid #ccc; padding:20px; width:220px;">
             <h3>Attendance</h3>
-           <a href="{% url 'attendance_view' student.id %}">View Attendance</a>
+           {% for student in students %}
+
+    <p>
+        {{ student.name }}
+
+        <a href="{% url 'attendance_view' student.id %}">
+            View Attendance
+        </a>
+    </p>
+
+{% endfor %}
         </div>
 
         <div style="border:1px solid #ccc; padding:20px; width:220px;">
