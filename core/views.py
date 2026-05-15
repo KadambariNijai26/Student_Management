@@ -33,5 +33,5 @@ def teacher_dashboard(request):
         'students': students
     }
 
-    return render(request, 'teacher_dashboard.html', context)
+    return render(request, 'accounts/teacher_dashboard.html', context)
 # Create your views here.
