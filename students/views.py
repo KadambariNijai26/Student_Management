@@ -194,7 +194,7 @@ def add_attendance(request, student_id):
         obj.save()
         return redirect('/students/manage/' + str(student.id))
 
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'accounts/form.html', {'form': form})
 
 
 @login_required
@@ -211,7 +211,7 @@ def add_marks(request, student_id):
         obj.save()
         return redirect('/students/manage/' + str(student.id))
 
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'accounts/form.html', {'form': form})
 
 
 
@@ -229,5 +229,5 @@ def add_fees(request, student_id):
         obj.save()
         return redirect('/students/manage/' + str(student.id))
 
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'accounts/form.html', {'form': form})
 # Create your views here.
