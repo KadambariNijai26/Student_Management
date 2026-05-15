@@ -26,6 +26,7 @@ def attendance_view(request):
         'percentage': percentage
 
     })
+@login_required(login_url='/accounts/login/')
 def update_attendance(request, id):
 
     attendance = get_object_or_404(Attendance, id=id)
@@ -39,10 +40,12 @@ def update_attendance(request, id):
         'attendance': attendance
     })
 
+@login_required(login_url='/accounts/login/')
 
 def delete_attendance(request, id):
+    _ = request
     attendance = get_object_or_404(Attendance, id=id)
     student_id = attendance.student.id
     attendance.delete()
-    return redirect('/students/manage/' + str(student_id))
+    return redirect(f'/students/manage/{student_id}/')
 # Create your views here.

@@ -24,56 +24,29 @@ from django.conf.urls.static import static
 
 from core import views as core
 
-from attendance.views import attendance_view
-from marks.views import marks_view
-from fees.views import fees_view
 
-from students.views import (
 
-    student_list,
-    add_student,
-    update_student,
-    delete_student
-
-)
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
 
     # Core Pages
-    path('', core.home, name='home'),
+    
 
-    path('about/', core.about, name='about'),
-
-    path('contact/', core.contact, name='contact'),
+    
 
     # Accounts App
     path('accounts/', include('accounts.urls')),
 
     # Attendance
-    path('attendance/', attendance_view, name='attendance'),
-    
-    path('students/', include('students.urls')),
-
     path('attendance/', include('attendance.urls')),
+path('marks/', include('marks.urls')),
+path('fees/', include('fees.urls')),
+path('students/', include('students.urls')),
 
-    path('marks/', include('marks.urls')),
-    # Marks
-    path('marks/', marks_view, name='marks'),
-
-    # Fees
-    path('fees/', fees_view, name='fees'),
-    path('fees/', include('fees.urls')),
-
-    # Students CRUD
-    path('students/', student_list),
-
-    path('add-student/', add_student),
-
-    path('update-student/<int:id>/', update_student),
-
-    path('delete-student/<int:id>/', delete_student),
+   
+   
 
 
     
