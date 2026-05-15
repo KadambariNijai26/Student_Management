@@ -75,7 +75,7 @@ def login_view(request):
 
         user = authenticate(
             request,
-            username=username,
+            username=username.strip(),
             password=password
         )
 
@@ -83,13 +83,15 @@ def login_view(request):
 
             login(request, user)
 
-            # Create profile if missing
             profile, created = UserProfile.objects.get_or_create(
                 user=user,
-                defaults={'role': 'student'}
+                defaults={
+                    'role': 'student',
+                    'phone': '',
+                    'address': '',
+                }
             )
 
-            # Redirect based on role
             if profile.role == 'teacher':
 
                 return redirect('/accounts/teacher-dashboard/')
@@ -106,15 +108,13 @@ def login_view(request):
 
             messages.error(
                 request,
-                "Invalid Username or Password"
+                'Invalid Username or Password'
             )
 
     return render(
         request,
         'accounts/login.html'
     )
-
-
 # =========================
 # LOGOUT VIEW
 # =========================
