@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="
+    padding:40px;
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+">
+
+    <div style="
+        background:white;
+        padding:40px;
+        border-radius:10px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    ">
+
+        <h1 style="color:red;">
+            Error
+        </h1>
+
+        <hr>
+
+        <p style="
+            font-size:18px;
+            margin-top:20px;
+        ">
+
+            {{ message }}
+
+        </p>
+
+        <br>
+
+        <a href="/"
+           style="
+                background:#007bff;
+                color:white;
+                padding:10px 20px;
+                text-decoration:none;
+                border-radius:5px;
+           ">
+
+            Go Home
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
