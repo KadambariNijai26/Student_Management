@@ -28,39 +28,34 @@ def student_list(request):
 
     query = request.GET.get('q')
 
+    # 🔥 COURSE FILTER (IMPORTANT)
     if request.user.userprofile.role == 'teacher':
-
-        teacher_course = request.user.userprofile.course
-
-        students = Student.objects.filter(course=teacher_course)
-
+        students = Student.objects.filter(
+            course=request.user.userprofile.course
+        )
     else:
-
         students = Student.objects.all()
 
+    # 🔥 SEARCH FIX (CORRECT WAY)
     if query:
-
         students = students.filter(
             name__icontains=query
         ) | students.filter(
             roll_no__icontains=query
         ) | students.filter(
-            course__icontains=query
+            course__name__icontains=query  # if FK course
         )
 
     course_students = {}
 
     for student in students:
-
-        if student.course not in course_students:
-            course_students[student.course] = []
-
-        course_students[student.course].append(student)
+        course_name = str(student.course)
+        if course_name not in course_students:
+            course_students[course_name] = []
+        course_students[course_name].append(student)
 
     return render(request, 'accounts/student_list.html', {
-
         'course_students': course_students
-
     })
 # =========================
 # ADD STUDENT
@@ -164,24 +159,22 @@ def student_dashboard(request):
         })
     
 
+
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def teacher_dashboard(request):
 
     if request.user.userprofile.role == 'teacher':
 
-        teacher_course = request.user.userprofile.course
-
-        students = Student.objects.filter(course=teacher_course)
+        students = Student.objects.filter(
+            course=request.user.userprofile.course
+        )
 
     else:
-
         students = Student.objects.all()
 
     return render(request, 'accounts/teacher_dashboard.html', {
-
         'students': students
-
     })
 
 @login_required(login_url='/accounts/login/')

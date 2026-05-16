@@ -5,14 +5,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-from .decorators import allowed_users
 from .models import UserProfile
 from .forms import ProfileForm
+from students.models import Course
 
 
 # =========================
-# REGISTER VIEW
+# REGISTER VIEW (UPDATED WITH COURSE SUPPORT)
 # =========================
+
+
 
 def register_view(request):
 
@@ -24,14 +26,14 @@ def register_view(request):
             email = request.POST.get('email').strip()
             password = request.POST.get('password')
             role = request.POST.get('role')
+            
+            course_id = request.POST.get('course')
+
+            course = Course.objects.get(id=course_id) # ✅ ADDED COURSE
 
             if User.objects.filter(username=username).exists():
 
-                messages.error(
-                    request,
-                    'Username already exists'
-                )
-
+                messages.error(request, 'Username already exists')
                 return redirect('/accounts/register/')
 
             user = User.objects.create_user(
@@ -40,28 +42,25 @@ def register_view(request):
                 password=password
             )
 
+            # ✅ SAVE PROFILE WITH COURSE
             UserProfile.objects.create(
                 user=user,
                 role=role,
+                course=course,   # IMPORTANT
                 phone='',
                 address=''
             )
 
-            messages.success(
-                request,
-                'Registration successful'
-            )
+            messages.success(request, 'Registration successful')
 
             return redirect('/accounts/login/')
 
         except Exception as e:
-
             return HttpResponse(str(e))
 
-    return render(
-        request,
-        'accounts/register.html'
-    )
+    return render(request, 'accounts/register.html', {
+    'courses': Course.objects.all()
+})
 
 
 # =========================
@@ -89,34 +88,25 @@ def login_view(request):
                 user=user,
                 defaults={
                     'role': 'student',
+                    'course': '',   # ✅ ADDED COURSE DEFAULT
                     'phone': '',
                     'address': '',
                 }
             )
 
             if profile.role == 'teacher':
-
                 return redirect('/accounts/teacher-dashboard/')
 
             elif profile.role == 'admin':
-
                 return redirect('/accounts/admin-dashboard/')
 
             else:
-
                 return redirect('/accounts/student-dashboard/')
 
         else:
+            messages.error(request, 'Invalid Username or Password')
 
-            messages.error(
-                request,
-                'Invalid Username or Password'
-            )
-
-    return render(
-        request,
-        'accounts/login.html'
-    )
+    return render(request, 'accounts/login.html')
 
 
 # =========================
@@ -127,10 +117,7 @@ def logout_view(request):
 
     logout(request)
 
-    messages.success(
-        request,
-        'Logged Out Successfully'
-    )
+    messages.success(request, 'Logged Out Successfully')
 
     return redirect('/accounts/login/')
 
@@ -146,21 +133,16 @@ def student_dashboard(request):
         user=request.user,
         defaults={
             'role': 'student',
+            'course': '',
             'phone': '',
             'address': ''
         }
     )
 
     if profile.role != 'student':
+        return HttpResponse("Unauthorized Access")
 
-        return HttpResponse(
-            "Unauthorized Access"
-        )
-
-    return render(
-        request,
-        'accounts/student_dashboard.html'
-    )
+    return render(request, 'accounts/student_dashboard.html')
 
 
 # =========================
@@ -174,21 +156,16 @@ def teacher_dashboard(request):
         user=request.user,
         defaults={
             'role': 'teacher',
+            'course': '',   # IMPORTANT
             'phone': '',
             'address': ''
         }
     )
 
     if profile.role != 'teacher':
+        return HttpResponse("Unauthorized Access")
 
-        return HttpResponse(
-            "Unauthorized Access"
-        )
-
-    return render(
-        request,
-        'accounts/teacher_dashboard.html'
-    )
+    return render(request, 'accounts/teacher_dashboard.html')
 
 
 # =========================
@@ -202,21 +179,16 @@ def admin_dashboard(request):
         user=request.user,
         defaults={
             'role': 'admin',
+            'course': '',
             'phone': '',
             'address': ''
         }
     )
 
     if profile.role != 'admin':
+        return HttpResponse("Unauthorized Access")
 
-        return HttpResponse(
-            "Unauthorized Access"
-        )
-
-    return render(
-        request,
-        'accounts/admin_dashboard.html'
-    )
+    return render(request, 'accounts/admin_dashboard.html')
 
 
 # =========================
@@ -230,6 +202,7 @@ def profile(request):
         user=request.user,
         defaults={
             'role': 'student',
+            'course': '',
             'phone': '',
             'address': ''
         }
@@ -242,21 +215,11 @@ def profile(request):
     )
 
     if form.is_valid():
-
         form.save()
-
-        messages.success(
-            request,
-            'Profile Updated Successfully'
-        )
-
+        messages.success(request, 'Profile Updated Successfully')
         return redirect('/accounts/profile/')
 
-    return render(
-        request,
-        'profile.html',
-        {
-            'form': form,
-            'profile': profile
-        }
-    )
+    return render(request, 'profile.html', {
+        'form': form,
+        'profile': profile
+    })

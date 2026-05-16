@@ -31,3 +31,11 @@ class ProfileForm(forms.ModelForm):
             'address',
             'profile_image'
         ]
+        from django import forms
+from .models import UserProfile
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ['role', 'course', 'phone', 'address']

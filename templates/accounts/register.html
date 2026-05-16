@@ -6,18 +6,19 @@
 
     <h1>Student Registration</h1>
 
+    <!-- MESSAGES -->
     {% for message in messages %}
-
         <p style="color:green;">
             {{ message }}
         </p>
-
     {% endfor %}
 
+    <!-- REGISTRATION FORM -->
     <form method="POST">
 
         {% csrf_token %}
 
+        <!-- USERNAME -->
         <input type="text"
                name="username"
                placeholder="Username"
@@ -25,6 +26,7 @@
 
         <br><br>
 
+        <!-- EMAIL -->
         <input type="email"
                name="email"
                placeholder="Email"
@@ -32,30 +34,40 @@
 
         <br><br>
 
+        <!-- PASSWORD -->
         <input type="password"
                name="password"
                placeholder="Password"
                required>
 
         <br><br>
-         <br><br>
 
-        <select name="role">
+        <!-- ROLE -->
+        <select name="role" required>
 
             <option value="student">Student</option>
-
             <option value="teacher">Teacher</option>
-
             <option value="admin">Admin</option>
 
         </select>
 
         <br><br>
 
+        <!-- COURSE DROPDOWN (FIXED VERSION) -->
+        <select name="course" required>
+
+            <option value="">Select Course</option>
+
+            {% for c in courses %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
         <button type="submit">
-
             Register
-
         </button>
 
     </form>
