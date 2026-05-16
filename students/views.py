@@ -45,7 +45,7 @@ def student_list(request):
             course__icontains=query
         )
 
-    return render(request, 'student_list.html', {
+    return render(request, 'accounts/student_list.html', {
 
         'students': students
 
