@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from accounts.decorators import allowed_users
 from students.models import Student
 from .models import Marks
 
@@ -10,6 +10,7 @@ from .models import Marks
 # Student List (Marks Module)
 # -------------------------
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
 def marks_students(request):
     students = Student.objects.all()
     return render(request, 'marks/students.html', {
@@ -35,6 +36,7 @@ def student_marks(request, id):
 # Add Marks
 # -------------------------
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
 def add_marks(request, id):
     student = get_object_or_404(Student, id=id)
 
@@ -57,6 +59,7 @@ def add_marks(request, id):
 # Update Marks
 # -------------------------
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
 def update_marks(request, id):
     marks = get_object_or_404(Marks, id=id)
 
@@ -76,7 +79,9 @@ def update_marks(request, id):
 # Delete Marks
 # -------------------------
 @login_required(login_url='/accounts/login/')
+@allowed_users(allowed_roles=['teacher', 'admin'])
 def delete_marks(request, id):
+    _ = request
     marks = get_object_or_404(Marks, id=id)
     student_id = marks.student.id
     marks.delete()

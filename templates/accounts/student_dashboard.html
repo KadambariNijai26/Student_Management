@@ -8,7 +8,9 @@
 
     <hr>
 
-    <h2>My Profile</h2>
+    <!-- STUDENT DETAILS -->
+
+    <h2>My Details</h2>
 
     <table border="1" cellpadding="10" cellspacing="0">
 
@@ -32,50 +34,62 @@
             <td>{{ student.email }}</td>
         </tr>
 
-        <tr>
-            <th>Contact</th>
-            <td>{{ student.contact }}</td>
-        </tr>
-
     </table>
 
     <hr>
 
     <!-- ATTENDANCE -->
 
-    <h2>Attendance</h2>
+    <h2>My Attendance</h2>
 
     {% for a in attendance %}
-        <p>{{ a.date }} - {{ a.status }}</p>
+
+        <p>
+            {{ a.date }} - {{ a.status }}
+        </p>
+
     {% empty %}
+
         <p>No attendance records found.</p>
+
     {% endfor %}
 
     <hr>
 
     <!-- MARKS -->
 
-    <h2>Marks</h2>
+    <h2>My Marks</h2>
 
     {% for m in marks %}
-        <p>{{ m.subject }} - {{ m.marks }}</p>
+
+        <p>
+            {{ m.subject }} : {{ m.marks }}
+        </p>
+
     {% empty %}
+
         <p>No marks found.</p>
+
     {% endfor %}
 
     <hr>
 
     <!-- FEES -->
 
-    <h2>Fees</h2>
+    <h2>My Fees</h2>
 
     {% for f in fees %}
+
         <p>
-            Total Fees: {{ f.total_fees }} |
+            Total Fees: {{ f.total_fees }}
+            <br>
             Paid Fees: {{ f.paid_fees }}
         </p>
+
     {% empty %}
+
         <p>No fee records found.</p>
+
     {% endfor %}
 
 </div>
