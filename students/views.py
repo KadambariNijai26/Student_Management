@@ -26,7 +26,19 @@ from fees.forms import FeesForm
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def student_list(request):
 
+    query = request.GET.get('q')
+
     students = Student.objects.all()
+
+    if query:
+
+        students = Student.objects.filter(
+            name__icontains=query
+        ) | Student.objects.filter(
+            roll_no__icontains=query
+        ) | Student.objects.filter(
+            course__icontains=query
+        )
 
     course_students = {}
 
@@ -42,7 +54,6 @@ def student_list(request):
         'course_students': course_students
 
     })
-
 # =========================
 # ADD STUDENT
 # =========================

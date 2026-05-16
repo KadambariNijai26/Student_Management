@@ -10,9 +10,18 @@
 
     <hr>
 
-    <!-- ADD STUDENT BUTTON -->
+    <!-- TOP SECTION -->
 
-    <div style="margin-bottom:20px;">
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:25px;
+        flex-wrap:wrap;
+        gap:15px;
+    ">
+
+        <!-- ADD STUDENT BUTTON -->
 
         <a href="/students/add/"
            style="
@@ -27,7 +36,45 @@
 
         </a>
 
+        <!-- SEARCH FORM -->
+
+        <form method="GET"
+              style="
+                    display:flex;
+                    gap:10px;
+                    flex-wrap:wrap;
+              ">
+
+            <input type="text"
+                   name="q"
+                   placeholder="Search by name, roll no or course"
+                   value="{{ request.GET.q }}"
+                   style="
+                        padding:10px;
+                        width:300px;
+                        border:1px solid #ccc;
+                        border-radius:5px;
+                   ">
+
+            <button type="submit"
+                    style="
+                        background:#007bff;
+                        color:white;
+                        border:none;
+                        padding:10px 18px;
+                        border-radius:5px;
+                        cursor:pointer;
+                    ">
+
+                Search
+
+            </button>
+
+        </form>
+
     </div>
+
+    <hr>
 
     <!-- COURSE WISE STUDENTS -->
 
