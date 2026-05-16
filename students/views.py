@@ -26,28 +26,20 @@ from fees.forms import FeesForm
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def student_list(request):
 
-    query = request.GET.get('q')
-
     students = Student.objects.all()
 
-    if query:
+    course_students = {}
 
-        students = Student.objects.filter(
+    for student in students:
 
-            name__icontains=query
+        if student.course not in course_students:
+            course_students[student.course] = []
 
-        ) | Student.objects.filter(
-
-            roll_no__icontains=query
-
-        ) | Student.objects.filter(
-
-            course__icontains=query
-        )
+        course_students[student.course].append(student)
 
     return render(request, 'accounts/student_list.html', {
 
-        'students': students
+        'course_students': course_students
 
     })
 
