@@ -28,15 +28,23 @@ def student_list(request):
 
     query = request.GET.get('q')
 
-    students = Student.objects.all()
+    if request.user.userprofile.role == 'teacher':
+
+        teacher_course = request.user.userprofile.course
+
+        students = Student.objects.filter(course=teacher_course)
+
+    else:
+
+        students = Student.objects.all()
 
     if query:
 
-        students = Student.objects.filter(
+        students = students.filter(
             name__icontains=query
-        ) | Student.objects.filter(
+        ) | students.filter(
             roll_no__icontains=query
-        ) | Student.objects.filter(
+        ) | students.filter(
             course__icontains=query
         )
 
@@ -159,11 +167,22 @@ def student_dashboard(request):
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
 def teacher_dashboard(request):
-    students = Student.objects.all()
+
+    if request.user.userprofile.role == 'teacher':
+
+        teacher_course = request.user.userprofile.course
+
+        students = Student.objects.filter(course=teacher_course)
+
+    else:
+
+        students = Student.objects.all()
 
     return render(request, 'accounts/teacher_dashboard.html', {
+
         'students': students
-    })   
+
+    })
 
 @login_required(login_url='/accounts/login/')
 @allowed_users(allowed_roles=['teacher', 'admin'])
