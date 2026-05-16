@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student System</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
 
         *{
@@ -18,13 +20,13 @@
         }
 
         body{
-          font-family: "Lucida Calligraphy", cursive;
-          background: linear-gradient(135deg, #f5deb3, #e6c9a8, #c19a6b);
-          min-height:100vh;
-          color:#4b2e2e;
+            font-family: "Lucida Calligraphy", cursive;
+            background: linear-gradient(135deg, #f5deb3, #e6c9a8, #c19a6b);
+            min-height:100vh;
+            color:#4b2e2e;
 
-         display:flex;
-         flex-direction:column;
+            display:flex;
+            flex-direction:column;
         }
 
         /* HEADER */
@@ -84,6 +86,7 @@
             margin:40px auto;
             flex:1;
         }
+
         /* CARD DESIGN */
 
         .card{
@@ -140,14 +143,14 @@
         /* FOOTER */
 
         footer{
-           background:#5c3317;
-           color:#ffe4c4;
-           text-align:center;
-           padding:18px;
-           border-top-left-radius:20px;
-           border-top-right-radius:20px;
-           box-shadow:0 -4px 15px rgba(0,0,0,0.2);
-           margin-top:auto;
+            background:#5c3317;
+            color:#ffe4c4;
+            text-align:center;
+            padding:18px;
+            border-top-left-radius:20px;
+            border-top-right-radius:20px;
+            box-shadow:0 -4px 15px rgba(0,0,0,0.2);
+            margin-top:auto;
         }
 
         footer p{
@@ -179,6 +182,7 @@
         }
 
     </style>
+
 </head>
 
 <body>
@@ -189,229 +193,237 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
 
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <!-- LOGO -->
+            <!-- LOGO -->
 
-        <a class="navbar-brand fw-bold"
-           href="/">
+            <a class="navbar-brand fw-bold"
+               href="/">
 
-            🎓 Student Management System
+                🎓 Student Management System
 
-        </a>
+            </a>
 
-        <!-- MOBILE BUTTON -->
+            <!-- MOBILE BUTTON -->
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
 
-            <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
 
-        </button>
+            </button>
 
-        <!-- NAVBAR LINKS -->
+            <!-- NAVBAR LINKS -->
 
-        <div class="collapse navbar-collapse"
-             id="navbarNav">
+            <div class="collapse navbar-collapse"
+                 id="navbarNav">
 
-            <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center">
 
-                <!-- HOME -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="/">
-
-                        Home
-
-                    </a>
-
-                </li>
-
-                <!-- ABOUT -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="/about/">
-
-                        About
-
-                    </a>
-
-                </li>
-
-                <!-- CONTACT -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="/contact/">
-
-                        Contact
-
-                    </a>
-
-                </li>
-
-                {% if user.is_authenticated %}
-
-                    <!-- PROFILE -->
+                    <!-- HOME -->
 
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="{% url 'profile' %}">
+                           href="/">
 
-                            Profile
-
-                        </a>
-
-                    </li>
-
-                    <!-- STUDENT DASHBOARD -->
-
-                    {% if user.userprofile.role == 'student' %}
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="{% url 'student_dashboard' %}">
-
-                                Dashboard
-
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="/attendance/">
-
-                                Attendance
-
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="/marks/">
-
-                                Marks
-
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="/fees/">
-
-                                Fees
-
-                            </a>
-
-                        </li>
-
-                    {% endif %}
-
-                    <!-- TEACHER DASHBOARD -->
-
-                    {% if user.userprofile.role == 'teacher' %}
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="{% url 'teacher_dashboard' %}">
-
-                                Teacher Panel
-
-                            </a>
-
-                        </li>
-
-                    {% endif %}
-
-                    <!-- ADMIN DASHBOARD -->
-
-                    {% if user.userprofile.role == 'admin' %}
-
-                        <li class="nav-item">
-
-                            <a class="nav-link"
-                               href="{% url 'admin_dashboard' %}">
-
-                                Admin Panel
-
-                            </a>
-
-                        </li>
-
-                    {% endif %}
-
-                    <!-- LOGOUT -->
-
-                    <li class="nav-item ms-2">
-
-                        <a class="btn btn-danger"
-                           href="{% url 'logout' %}">
-
-                            Logout
+                            Home
 
                         </a>
 
                     </li>
 
-                {% else %}
-
-                    <!-- LOGIN -->
+                    <!-- ABOUT -->
 
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="{% url 'login' %}">
+                           href="/about/">
 
-                            Login
-
-                        </a>
-
-                    </li>
-
-                    <!-- REGISTER -->
-
-                    <li class="nav-item ms-2">
-
-                        <a class="btn btn-warning text-dark fw-bold"
-                           href="{% url 'register' %}">
-
-                            Register
+                            About
 
                         </a>
 
                     </li>
 
-                {% endif %}
+                    <!-- CONTACT -->
 
-            </ul>
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="/contact/">
+
+                            Contact
+
+                        </a>
+
+                    </li>
+
+                    {% if user.is_authenticated %}
+
+                        <!-- PROFILE -->
+
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               href="{% url 'profile' %}">
+
+                                Profile
+
+                            </a>
+
+                        </li>
+
+                        <!-- STUDENT NAVIGATION -->
+
+                        {% if user.userprofile.role == 'student' %}
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'student_dashboard' %}">
+
+                                    Student Dashboard
+
+                                </a>
+
+                            </li>
+
+                        {% endif %}
+
+                        <!-- TEACHER / ADMIN NAVIGATION -->
+
+                        {% if user.userprofile.role == 'teacher' or user.userprofile.role == 'admin' %}
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'teacher_dashboard' %}">
+
+                                    Teacher Dashboard
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'attendance_students' %}">
+
+                                    Attendance
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'marks_students' %}">
+
+                                    Marks
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'fees_students' %}">
+
+                                    Fees
+
+                                </a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link"
+                                   href="{% url 'student_list' %}">
+
+                                    Students
+
+                                </a>
+
+                            </li>
+
+                        {% endif %}
+
+                        <!-- LOGOUT -->
+
+                        <li class="nav-item ms-2">
+
+                            <a class="btn btn-danger"
+                               href="{% url 'logout' %}">
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    {% else %}
+
+                        <!-- LOGIN -->
+
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               href="{% url 'login' %}">
+
+                                Login
+
+                            </a>
+
+                        </li>
+
+                        <!-- REGISTER -->
+
+                        <li class="nav-item ms-2">
+
+                            <a class="btn btn-warning text-dark fw-bold"
+                               href="{% url 'register' %}">
+
+                                Register
+
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
 
         </div>
 
-    </div>
-
-</nav>
+    </nav>
 
 </header>
 
 <div class="container">
 
-    <!-- Main Content -->
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-success">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <!-- MAIN CONTENT -->
 
     {% block content %}
 
@@ -425,22 +437,24 @@
             with a beautiful modern dashboard.
         </p>
 
-        <a href="{% url 'register' %}" class="btn">Get Started</a>
-        {% if messages %}
-  {% for message in messages %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-  {% endfor %}
-{% endif %}
+        <a href="{% url 'register' %}" class="btn">
+
+            Get Started
+
+        </a>
+
     </div>
 
     {% endblock %}
- 
+
 </div>
 
 <footer>
-    <p>© 2026 Student Management System | Designed with Elegance</p>
+
+    <p>
+        © 2026 Student Management System | Designed with Elegance
+    </p>
+
 </footer>
 
 </body>

@@ -4,13 +4,13 @@
 
 <div style="padding:30px;">
 
-    <h1>Student Dashboard</h1>
+    <h1>Welcome, {{ student.name }}</h1>
 
     <hr>
 
     <!-- STUDENT DETAILS -->
 
-    <h2>My Details</h2>
+    <h2>My Profile</h2>
 
     <table border="1" cellpadding="10" cellspacing="0">
 
@@ -34,6 +34,11 @@
             <td>{{ student.email }}</td>
         </tr>
 
+        <tr>
+            <th>Contact</th>
+            <td>{{ student.contact }}</td>
+        </tr>
+
     </table>
 
     <hr>
@@ -42,17 +47,29 @@
 
     <h2>My Attendance</h2>
 
-    {% for a in attendance %}
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
 
-        <p>
-            {{ a.date }} - {{ a.status }}
-        </p>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
 
-    {% empty %}
+        {% for a in attendance %}
 
-        <p>No attendance records found.</p>
+        <tr>
+            <td>{{ a.date }}</td>
+            <td>{{ a.status }}</td>
+        </tr>
 
-    {% endfor %}
+        {% empty %}
+
+        <tr>
+            <td colspan="2">No attendance records found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
 
     <hr>
 
@@ -60,17 +77,29 @@
 
     <h2>My Marks</h2>
 
-    {% for m in marks %}
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
 
-        <p>
-            {{ m.subject }} : {{ m.marks }}
-        </p>
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+        </tr>
 
-    {% empty %}
+        {% for m in marks %}
 
-        <p>No marks found.</p>
+        <tr>
+            <td>{{ m.subject }}</td>
+            <td>{{ m.marks }}</td>
+        </tr>
 
-    {% endfor %}
+        {% empty %}
+
+        <tr>
+            <td colspan="2">No marks found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
 
     <hr>
 
@@ -78,19 +107,29 @@
 
     <h2>My Fees</h2>
 
-    {% for f in fees %}
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
 
-        <p>
-            Total Fees: {{ f.total_fees }}
-            <br>
-            Paid Fees: {{ f.paid_fees }}
-        </p>
+        <tr>
+            <th>Total Fees</th>
+            <th>Paid Fees</th>
+        </tr>
 
-    {% empty %}
+        {% for f in fees %}
 
-        <p>No fee records found.</p>
+        <tr>
+            <td>{{ f.total_fees }}</td>
+            <td>{{ f.paid_fees }}</td>
+        </tr>
 
-    {% endfor %}
+        {% empty %}
+
+        <tr>
+            <td colspan="2">No fee records found.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
 
 </div>
 
