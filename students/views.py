@@ -65,9 +65,9 @@ def add_student(request):
 
         form.save()
 
-        return redirect('/students/')
+        return redirect('student_list')
 
-    return render(request, 'add_student.html', {
+    return render(request, 'students/add_student.html', {
 
         'form': form
 
@@ -97,7 +97,7 @@ def update_student(request, id):
 
         return redirect('/students/')
 
-    return render(request, 'update_student.html', {
+    return render(request, 'students/update_student.html', {
 
         'form': form
 
@@ -172,7 +172,7 @@ def manage_student(request, id):
     marks = Marks.objects.filter(student=student)
     fees = Fees.objects.filter(student=student)
 
-    return render(request, 'manage_student.html', {
+    return render(request, 'students/manage_student.html', {
         'student': student,
         'attendance': attendance,
         'marks': marks,

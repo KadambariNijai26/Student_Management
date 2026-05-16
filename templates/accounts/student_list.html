@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:30px;">
+
+    <!-- PAGE TITLE -->
+
+    <h1>Students List</h1>
+
+    <hr>
+
+    <!-- ADD STUDENT BUTTON -->
+
+    <div style="margin-bottom:20px;">
+
+        <a href="/students/add/"
+           style="
+                background:#28a745;
+                color:white;
+                padding:10px 20px;
+                text-decoration:none;
+                border-radius:5px;
+           ">
+
+            + Add Student
+
+        </a>
+
+    </div>
+
+    <!-- COURSE WISE STUDENTS -->
+
+    {% for course, students in course_students.items %}
+
+        <div style="margin-bottom:40px;">
+
+            <h2>{{ course }}</h2>
+
+            <table border="1"
+                   cellpadding="10"
+                   cellspacing="0"
+                   width="100%">
+
+                <tr style="background:#f2f2f2;">
+
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+
+                </tr>
+
+                {% for student in students %}
+
+                <tr>
+
+                    <td>{{ student.name }}</td>
+
+                    <td>{{ student.roll_no }}</td>
+
+                    <td>{{ student.email }}</td>
+
+                    <td>{{ student.contact }}</td>
+
+                    <td>
+
+                        <a href="/students/manage/{{ student.id }}/">
+                            Manage
+                        </a>
+
+                        |
+
+                        <a href="/students/update/{{ student.id }}/">
+                            Edit
+                        </a>
+
+                        |
+
+                        <a href="/students/delete/{{ student.id }}/"
+                           onclick="return confirm('Are you sure you want to delete this student?')">
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+    {% empty %}
+
+        <p>No students found.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
